@@ -23,7 +23,6 @@ import ReadingSection from './components/sections/ReadingSection';
 import FocusSection from './components/sections/FocusSection';
 import CollectionSection from './components/sections/CollectionSection';
 import WatchlistsSection from './components/sections/WatchlistsSection';
-import ListsSection from './components/sections/ListsSection';
 import StatsSection from './components/sections/StatsSection';
 
 // Common Components
@@ -237,8 +236,6 @@ function App() {
         return <CollectionSection {...sectionProps} />;
       case 'watchlists':
         return <WatchlistsSection {...sectionProps} />;
-      case 'lists':
-        return <ListsSection {...sectionProps} onShare={() => setShareModalOpen(true)} />;
       case 'stats':
         return <StatsSection />;
       default:

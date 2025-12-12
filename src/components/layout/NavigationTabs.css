@@ -1,190 +1,293 @@
 /* ========================================
-   NavigationTabs.css - Navigation Tabs Styles
+   NavigationTabs.css - Modern Clean Navigation
+   Optimized for Desktop, Mobile, TV, and Apple devices
    ======================================== */
 
-.premium-nav {
-  position: relative;
-  z-index: 5;
-  background: linear-gradient(180deg, rgba(26, 26, 26, 0.95), rgba(13, 13, 13, 0.98));
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-  padding: 12px 0;
+.nav-container {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(12, 12, 12, 0.95);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
 
-.nav-tabs-container {
+.nav-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.nav-inner {
   display: flex;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 8px;
-  max-width: 1400px;
+  gap: 4px;
+  padding: 10px 16px;
+  min-width: max-content;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 16px;
 }
 
-.nav-tab {
+/* Navigation Groups */
+.nav-group {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(212, 175, 55, 0.15);
+  margin: 0 8px;
+  flex-shrink: 0;
+}
+
+/* Navigation Items */
+.nav-item {
+  display: flex;
   align-items: center;
   gap: 6px;
-  padding: 12px 24px;
+  padding: 8px 14px;
   background: transparent;
   border: 1px solid transparent;
-  border-radius: 12px;
-  color: var(--text-secondary);
-  font-size: 14px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
   font-weight: 500;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  min-width: 90px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+  /* Apple optimization - use transform for GPU acceleration */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nav-tab::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.nav-item:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.nav-tab:hover {
-  color: var(--text-primary);
-  border-color: rgba(212, 175, 55, 0.3);
+.nav-item.active {
+  color: var(--accent);
+  background: rgba(212, 175, 55, 0.1);
+  border-color: rgba(212, 175, 55, 0.25);
 }
 
-.nav-tab:hover::before {
-  opacity: 1;
+/* Focus state for TV/Keyboard navigation */
+.nav-item.focused,
+.nav-item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent);
+  color: #fff;
+  background: rgba(212, 175, 55, 0.15);
 }
 
-.nav-tab.active {
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(184, 134, 11, 0.1));
-  border-color: var(--accent);
-  color: var(--gold-light);
-  box-shadow: 
-    0 0 20px rgba(212, 175, 55, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+.nav-item-icon {
+  font-size: 16px;
+  line-height: 1;
 }
 
-.nav-tab.active::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40%;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  border-radius: 2px;
+.nav-item-label {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: 0.01em;
 }
 
-.nav-icon {
-  font-size: 20px;
-  transition: transform 0.3s ease;
-}
+/* ========================================
+   Responsive Breakpoints
+   ======================================== */
 
-.nav-tab:hover .nav-icon,
-.nav-tab.active .nav-icon {
-  transform: scale(1.15);
-}
-
-.nav-label {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* Responsive */
+/* Tablet */
 @media (max-width: 1024px) {
-  .nav-tab {
-    padding: 10px 18px;
-    min-width: 85px;
+  .nav-inner {
+    justify-content: flex-start;
+    padding: 8px 12px;
   }
   
-  .nav-icon {
+  .nav-item {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .nav-divider {
+    margin: 0 6px;
+    height: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-container {
+    border-bottom-color: rgba(212, 175, 55, 0.08);
+  }
+  
+  .nav-inner {
+    gap: 2px;
+    padding: 6px 8px;
+  }
+  
+  .nav-group {
+    gap: 1px;
+  }
+  
+  .nav-item {
+    flex-direction: column;
+    gap: 2px;
+    padding: 6px 10px;
+    border-radius: 6px;
+  }
+  
+  .nav-item-icon {
     font-size: 18px;
   }
   
-  .nav-label {
-    font-size: 11px;
+  .nav-item-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+  
+  .nav-divider {
+    height: 32px;
+    margin: 0 4px;
   }
 }
 
-@media (max-width: 768px) {
-  .premium-nav {
-    padding: 8px 0;
+/* Small Mobile */
+@media (max-width: 480px) {
+  .nav-item {
+    padding: 5px 8px;
   }
   
-  .nav-tabs-container {
+  .nav-item-icon {
+    font-size: 16px;
+  }
+  
+  .nav-item-label {
+    font-size: 8px;
+  }
+  
+  .nav-divider {
+    margin: 0 2px;
+  }
+}
+
+/* ========================================
+   TV / Large Screen Mode (1920px+)
+   ======================================== */
+@media (min-width: 1440px) {
+  .nav-inner {
     gap: 6px;
-    padding: 0 10px;
-    justify-content: flex-start;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    padding: 14px 24px;
   }
   
-  .nav-tabs-container::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .nav-tab {
-    padding: 8px 14px;
-    min-width: 80px;
-    flex-shrink: 0;
+  .nav-item {
+    padding: 12px 20px;
+    gap: 8px;
+    font-size: 15px;
     border-radius: 10px;
   }
   
-  .nav-icon {
-    font-size: 16px;
+  .nav-item-icon {
+    font-size: 20px;
   }
   
-  .nav-label {
-    font-size: 10px;
+  .nav-divider {
+    height: 28px;
+    margin: 0 12px;
   }
 }
 
-@media (max-width: 480px) {
-  .nav-tab {
-    padding: 6px 12px;
-    min-width: 70px;
-  }
-  
-  .nav-icon {
-    font-size: 14px;
-  }
-  
-  .nav-label {
-    font-size: 9px;
-  }
-}
-
-@media (max-width: 374px) {
-  .nav-tab {
-    padding: 6px 10px;
-    min-width: 60px;
-  }
-}
-
-/* TV/Large Screens */
+/* TV Mode - Extra large focus states */
 @media (min-width: 1921px) {
-  .nav-tab {
+  .nav-container {
+    padding: 8px 0;
+  }
+  
+  .nav-inner {
+    gap: 8px;
     padding: 16px 32px;
-    min-width: 120px;
-    border-radius: 16px;
   }
   
-  .nav-icon {
-    font-size: 28px;
+  .nav-item {
+    padding: 16px 28px;
+    gap: 10px;
+    font-size: 18px;
+    border-radius: 12px;
+    border-width: 2px;
   }
   
-  .nav-label {
-    font-size: 16px;
+  .nav-item-icon {
+    font-size: 26px;
   }
   
-  .nav-tab:focus {
-    outline: 3px solid var(--accent);
-    outline-offset: 2px;
+  .nav-item.focused,
+  .nav-item:focus-visible {
+    box-shadow: 0 0 0 4px var(--accent);
+    transform: scale(1.05);
+  }
+  
+  .nav-divider {
+    height: 36px;
+    width: 2px;
+    margin: 0 16px;
+  }
+}
+
+/* ========================================
+   Apple Device Optimizations
+   ======================================== */
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .nav-item {
+    transition: none;
+  }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  .nav-container {
+    /* Fix for iOS scroll bounce */
+    position: -webkit-sticky;
+    position: sticky;
+  }
+  
+  .nav-scroll {
+    /* Momentum scrolling */
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .nav-item {
+    /* Prevent text size adjustment */
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .nav-item.active {
+    border-color: var(--accent);
+    border-width: 2px;
+  }
+  
+  .nav-divider {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* Dark mode optimization (default) */
+@media (prefers-color-scheme: dark) {
+  .nav-container {
+    background: rgba(8, 8, 8, 0.98);
   }
 }

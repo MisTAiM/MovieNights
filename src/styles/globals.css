@@ -245,6 +245,122 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
+/* ========================================
+   Apple Device Optimizations
+   ======================================== */
+
+/* iOS Safari GPU acceleration and scroll fixes */
+@supports (-webkit-touch-callout: none) {
+  body {
+    /* Prevent rubber band scrolling issues */
+    overscroll-behavior: none;
+    /* Prevent zoom on input focus */
+    touch-action: manipulation;
+  }
+  
+  /* GPU accelerate fixed/sticky elements */
+  .nav-container,
+  .player-modal,
+  .intro-overlay,
+  .modal-backdrop {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  /* Fix momentum scrolling */
+  .nav-scroll,
+  .content-grid,
+  .modal-content {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Prevent 300ms tap delay */
+  a, button, input, select, textarea, [role="button"] {
+    touch-action: manipulation;
+  }
+  
+  /* Fix input zoom on iOS */
+  input[type="text"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* macOS Safari optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  body {
+    /* Better font rendering on Retina */
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Optimize animations */
+  .content-card,
+  .nav-item,
+  .game-card,
+  .site-card {
+    will-change: transform;
+  }
+}
+
+/* iOS PWA mode */
+@media (display-mode: standalone) {
+  body {
+    /* Prevent pull-to-refresh */
+    overscroll-behavior-y: none;
+  }
+  
+  /* Safe area padding for notched devices */
+  .nav-container {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .player-modal,
+  .game-player-overlay {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Fix for iOS keyboard */
+@media (max-height: 500px) and (orientation: landscape) {
+  .nav-container {
+    position: relative;
+  }
+}
+
+/* ========================================
+   TV Mode Optimizations
+   ======================================== */
+@media (min-width: 1921px) {
+  :root {
+    --spacing-sm: 1.5rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 3rem;
+    --radius-sm: 12px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+  }
+  
+  body {
+    font-size: 18px;
+  }
+  
+  /* Larger focus indicators for TV */
+  :focus-visible {
+    outline-width: 4px;
+    outline-offset: 4px;
+  }
+  
+  /* Custom cursor not needed on TV */
+  body, a, button, [role="button"], .clickable {
+    cursor: default;
+  }
+}
+
 /* Print Styles */
 @media print {
   body::before,
