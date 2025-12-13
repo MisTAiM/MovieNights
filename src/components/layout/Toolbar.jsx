@@ -99,6 +99,45 @@ const animeSortOptions = [
   { id: 'EPISODES_DESC', name: 'Most Episodes' }
 ];
 
+// Languages - ISO 639-1 codes used by TMDB
+const languages = [
+  { id: 'en', name: 'English' },
+  { id: 'es', name: 'Spanish' },
+  { id: 'fr', name: 'French' },
+  { id: 'de', name: 'German' },
+  { id: 'it', name: 'Italian' },
+  { id: 'pt', name: 'Portuguese' },
+  { id: 'ja', name: 'Japanese' },
+  { id: 'ko', name: 'Korean' },
+  { id: 'zh', name: 'Chinese' },
+  { id: 'hi', name: 'Hindi' },
+  { id: 'ar', name: 'Arabic' },
+  { id: 'ru', name: 'Russian' },
+  { id: 'th', name: 'Thai' },
+  { id: 'vi', name: 'Vietnamese' },
+  { id: 'id', name: 'Indonesian' },
+  { id: 'tr', name: 'Turkish' },
+  { id: 'pl', name: 'Polish' },
+  { id: 'nl', name: 'Dutch' },
+  { id: 'sv', name: 'Swedish' },
+  { id: 'da', name: 'Danish' },
+  { id: 'no', name: 'Norwegian' },
+  { id: 'fi', name: 'Finnish' },
+  { id: 'tl', name: 'Filipino' },
+  { id: 'he', name: 'Hebrew' },
+  { id: 'el', name: 'Greek' },
+  { id: 'cs', name: 'Czech' },
+  { id: 'hu', name: 'Hungarian' },
+  { id: 'ro', name: 'Romanian' },
+  { id: 'uk', name: 'Ukrainian' },
+  { id: 'bn', name: 'Bengali' },
+  { id: 'ta', name: 'Tamil' },
+  { id: 'te', name: 'Telugu' },
+  { id: 'ml', name: 'Malayalam' },
+  { id: 'mr', name: 'Marathi' },
+  { id: 'pa', name: 'Punjabi' }
+];
+
 function Toolbar({ onSearch }) {
   const { state, actions } = useApp();
   const { currentSection, currentViewMode, currentSort, filters } = state;
@@ -129,7 +168,8 @@ function Toolbar({ onSearch }) {
       rating: '',
       status: '',
       format: '',
-      sort: ''
+      sort: '',
+      language: ''
     });
   }, [currentSection]);
 
@@ -158,14 +198,18 @@ function Toolbar({ onSearch }) {
       rating: '',
       status: '',
       format: '',
-      sort: ''
+      sort: '',
+      language: ''
     });
     actions.addNotification('Filters cleared', 'info');
   };
 
   // Check if any filters are active
   const hasActiveFilters = filters.genre || filters.year || filters.rating || 
-                           filters.status || filters.format || filters.sort;
+                           filters.status || filters.format || filters.sort || filters.language;
+
+  // Show language filter for movies and TV
+  const showLanguageFilter = currentSection === 'movies' || currentSection === 'tvshows';
 
   return (
     <div className="elegant-toolbar">
@@ -277,6 +321,24 @@ function Toolbar({ onSearch }) {
             <option value="5">5+ ★</option>
           </select>
         </div>
+
+        {/* Language Filter - for Movies and TV */}
+        {showLanguageFilter && (
+          <div className="elegant-select-wrapper">
+            <select
+              className="elegant-select"
+              value={filters.language || ''}
+              onChange={(e) => handleFilterChange('language', e.target.value)}
+            >
+              <option value="">All Languages</option>
+              {languages.map((lang) => (
+                <option key={lang.id} value={lang.id}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         {/* Anime-specific: Format Filter */}
         {isAnimeSection && (

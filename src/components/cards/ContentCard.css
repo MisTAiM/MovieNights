@@ -210,6 +210,19 @@
   color: var(--accent);
 }
 
+/* Card Description */
+.card-description {
+  font-size: 11px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  opacity: 0.85;
+}
+
 /* User Rating */
 .user-rating {
   margin-bottom: 8px;
@@ -306,6 +319,12 @@
   -webkit-box-orient: vertical;
 }
 
+.list-view .card-description {
+  -webkit-line-clamp: 2;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
 .list-view .card-actions {
   flex-direction: row;
   justify-content: flex-start;
@@ -345,7 +364,8 @@
 }
 
 .compact-view .user-rating,
-.compact-view .personal-note {
+.compact-view .personal-note,
+.compact-view .card-description {
   display: none;
 }
 

@@ -107,6 +107,11 @@ export async function getPopularMovies(page = 1, filters = {}) {
     params['vote_count.gte'] = 100; // Ensure enough votes for meaningful rating
   }
   
+  // Language filter - filter by original language
+  if (filters?.language) {
+    params.with_original_language = filters.language;
+  }
+  
   console.log('TMDB getPopularMovies params:', params);
   
   const data = await tmdbFetch('/discover/movie', params);
@@ -143,6 +148,11 @@ export async function getPopularTVShows(page = 1, filters = {}) {
   if (filters?.rating) {
     params['vote_average.gte'] = parseFloat(filters.rating);
     params['vote_count.gte'] = 50;
+  }
+  
+  // Language filter - filter by original language
+  if (filters?.language) {
+    params.with_original_language = filters.language;
   }
   
   console.log('TMDB getPopularTVShows params:', params);

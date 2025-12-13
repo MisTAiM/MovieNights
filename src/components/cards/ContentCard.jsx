@@ -52,6 +52,14 @@ function ContentCard({ item, onPlay, onEdit, index = 0 }) {
   // Get title
   const title = item.title || item.name;
   
+  // Get description/overview
+  const description = item.overview || item.description || '';
+  
+  // Truncate description for card display
+  const truncatedDescription = description.length > 120 
+    ? description.substring(0, 120) + '...' 
+    : description;
+  
   // User data from collection
   const userRating = collectionItem?.userRating;
   const watchStatus = collectionItem?.status;
@@ -131,6 +139,11 @@ function ContentCard({ item, onPlay, onEdit, index = 0 }) {
             ★ {rating}
           </span>
         </div>
+        
+        {/* Description - show in grid and list view */}
+        {description && currentViewMode !== 'compact' && (
+          <p className="card-description">{truncatedDescription}</p>
+        )}
         
         {/* User Rating */}
         {userRating && (

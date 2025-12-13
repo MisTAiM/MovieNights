@@ -39,11 +39,12 @@ function MoviesSection({ onPlay, onEdit, searchQuery }) {
         setIsSearchMode(false);
         console.log('MoviesSection: Getting movies with filters');
         
-        // Pass filters to API
+        // Pass filters to API including language
         data = await tmdbApi.getPopularMovies(pageNum, {
           genre: filters.genre || undefined,
           year: filters.year || undefined,
-          rating: filters.rating || undefined
+          rating: filters.rating || undefined,
+          language: filters.language || undefined
         });
       }
 
@@ -74,7 +75,7 @@ function MoviesSection({ onPlay, onEdit, searchQuery }) {
         setLoading(false);
       }
     }
-  }, [searchQuery, filters.genre, filters.year, filters.rating, actions]);
+  }, [searchQuery, filters.genre, filters.year, filters.rating, filters.language, actions]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -90,6 +91,7 @@ function MoviesSection({ onPlay, onEdit, searchQuery }) {
       genre: filters.genre,
       year: filters.year,
       rating: filters.rating,
+      language: filters.language,
       search: searchQuery
     });
     
@@ -100,7 +102,7 @@ function MoviesSection({ onPlay, onEdit, searchQuery }) {
       setItems([]);
       loadMovies(1, false);
     }
-  }, [filters.genre, filters.year, filters.rating, searchQuery, activeFilters, loadMovies]);
+  }, [filters.genre, filters.year, filters.rating, filters.language, searchQuery, activeFilters, loadMovies]);
 
   // Load more
   const handleLoadMore = useCallback(() => {
@@ -126,6 +128,18 @@ function MoviesSection({ onPlay, onEdit, searchQuery }) {
     }
     if (filters.year) parts.push(filters.year);
     if (filters.rating) parts.push(`${filters.rating}+ ★`);
+    if (filters.language) {
+      const langNames = {
+        en: 'English', es: 'Spanish', fr: 'French', de: 'German', it: 'Italian',
+        pt: 'Portuguese', ja: 'Japanese', ko: 'Korean', zh: 'Chinese', hi: 'Hindi',
+        ar: 'Arabic', ru: 'Russian', th: 'Thai', vi: 'Vietnamese', id: 'Indonesian',
+        tr: 'Turkish', pl: 'Polish', nl: 'Dutch', sv: 'Swedish', da: 'Danish',
+        no: 'Norwegian', fi: 'Finnish', tl: 'Filipino', he: 'Hebrew', el: 'Greek',
+        cs: 'Czech', hu: 'Hungarian', ro: 'Romanian', uk: 'Ukrainian', bn: 'Bengali',
+        ta: 'Tamil', te: 'Telugu', ml: 'Malayalam', mr: 'Marathi', pa: 'Punjabi'
+      };
+      parts.push(langNames[filters.language] || filters.language);
+    }
     return parts.length > 0 ? ` (${parts.join(', ')})` : '';
   };
 
