@@ -283,7 +283,7 @@
 
 .controls-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 10px;
 }
 
@@ -307,7 +307,7 @@
   margin-right: 6px;
 }
 
-/* IO Games */
+/* IO Games Tab */
 .tab-desc {
   text-align: center;
   color: var(--text-secondary);
@@ -368,10 +368,7 @@
   opacity: 1;
 }
 
-/* ========================================
-   GAME PLAYER
-   ======================================== */
-
+/* Game Player */
 .game-player {
   position: fixed;
   inset: 0;
@@ -391,7 +388,6 @@
   background: #000;
 }
 
-/* Player Header */
 .player-header {
   display: flex;
   justify-content: space-between;
@@ -463,7 +459,6 @@
   background: rgba(220, 53, 69, 0.3);
 }
 
-/* Game Frame */
 .game-frame {
   flex: 1;
   display: flex;
@@ -494,7 +489,6 @@
   border-radius: 0;
 }
 
-/* Player Footer */
 .player-footer {
   display: flex;
   justify-content: center;
@@ -518,10 +512,7 @@
   color: var(--text-primary);
 }
 
-/* ========================================
-   RESPONSIVE
-   ======================================== */
-
+/* Responsive */
 @media (max-width: 768px) {
   .games-section {
     padding: 16px;
@@ -551,11 +542,6 @@
     font-size: 12px;
   }
   
-  .fav-btn {
-    bottom: 4px;
-    right: 4px;
-  }
-  
   .console-selector {
     gap: 6px;
   }
@@ -567,10 +553,6 @@
   
   .console-icon {
     font-size: 22px;
-  }
-  
-  .console-name {
-    font-size: 10px;
   }
   
   .io-grid {
@@ -594,11 +576,6 @@
     max-height: 100%;
     border-radius: 0;
   }
-  
-  .player-footer {
-    padding: 8px 14px;
-    font-size: 10px;
-  }
 }
 
 /* TV Mode */
@@ -608,22 +585,8 @@
     padding: 40px;
   }
   
-  .game-tabs {
-    gap: 12px;
-  }
-  
-  .game-tab {
-    padding: 16px 32px;
-    font-size: 18px;
-  }
-  
-  .games-grid {
-    gap: 20px;
-  }
-  
   .game-card {
     padding: 22px;
-    border-width: 2px;
   }
   
   .game-card.focused {
@@ -638,40 +601,12 @@
   .game-info h4 {
     font-size: 18px;
   }
-  
-  .console-btn {
-    padding: 18px 28px;
-    border-width: 3px;
-  }
-  
-  .console-icon {
-    font-size: 36px;
-  }
-  
-  .console-name {
-    font-size: 14px;
-  }
-  
-  .player-title h3 {
-    font-size: 24px;
-  }
-  
-  .action-btn {
-    width: 50px;
-    height: 50px;
-    font-size: 22px;
-  }
 }
 
 /* Apple optimizations */
 @supports (-webkit-touch-callout: none) {
   .game-player {
     padding-bottom: env(safe-area-inset-bottom);
-  }
-  
-  .game-card, .io-card {
-    -webkit-transform: translateZ(0);
-    transform: translateZ(0);
   }
   
   .recent-scroll {
