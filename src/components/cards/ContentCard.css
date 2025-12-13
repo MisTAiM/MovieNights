@@ -210,17 +210,34 @@
   color: var(--accent);
 }
 
-/* Card Description */
+/* Card Description - Full text with scroll */
 .card-description {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--text-secondary);
-  line-height: 1.4;
-  margin-bottom: 8px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  opacity: 0.85;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  max-height: 80px;
+  overflow-y: auto;
+  padding-right: 4px;
+  opacity: 0.9;
+}
+
+.card-description::-webkit-scrollbar {
+  width: 3px;
+}
+
+.card-description::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+.card-description::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 2px;
+}
+
+.card-description::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.5);
 }
 
 /* User Rating */
@@ -320,7 +337,7 @@
 }
 
 .list-view .card-description {
-  -webkit-line-clamp: 2;
+  max-height: 60px;
   font-size: 12px;
   margin-bottom: 8px;
 }
